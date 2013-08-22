@@ -1,0 +1,21 @@
+{
+  "name": "imbo/imbolauncher",
+  "homepage": "http://www.imbo-project.org/",
+  "license": "MIT",
+  "authors": [{
+      "name": "Christer Edvartsen",
+      "email": "cogo@starzinger.net",
+      "role": "Project lead",
+      "homepage": "http://cogo.wordpress.com"
+    }
+  ],
+  "require": {
+    "symfony/console": "2.3.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "ImboLauncher": "src/",
+      "ImboLauncherTest": "tests/"
+    }
+  }
+}
