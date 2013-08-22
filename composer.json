@@ -17,5 +17,11 @@
       "ImboLauncher": "src/",
       "ImboLauncherTest": "tests/"
     }
+  },
+  "bin": [
+    "imbolauncher"
+  ],
+  "config": {
+    "bin-dir": "bin"
   }
 }
