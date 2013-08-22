@@ -11,7 +11,8 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "symfony/console": "2.3.*"
+    "symfony/console": "2.3.*",
+    "hasbridge/json-schema-validator": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "3.7.*"
