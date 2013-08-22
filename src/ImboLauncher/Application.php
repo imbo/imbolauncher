@@ -29,7 +29,6 @@ class Application extends Console\Application {
         // Register commands
         $this->addCommands(array(
             new Command\StartServers(),
-            new Command\KillServers(),
         ));
     }
 }
