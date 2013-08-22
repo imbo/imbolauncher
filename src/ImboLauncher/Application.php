@@ -10,7 +10,8 @@
 
 namespace ImboLauncher;
 
-use ImboLauncher\Command;
+use ImboLauncher\Command,
+    Symfony\Component\Console;
 
 /**
  * Main application class
@@ -18,7 +19,7 @@ use ImboLauncher\Command;
  * @author Christer Edvartsen <cogo@starzinger.net>
  * @package Application
  */
-class Application extends Symfony\Component\Console\Application {
+class Application extends Console\Application {
     /**
      * Class constructor
      */
