@@ -13,6 +13,9 @@
     "php": ">=5.4.0",
     "symfony/console": "2.3.*"
   },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
   "autoload": {
     "psr-0": {
       "ImboLauncher": "src/",
@@ -21,8 +24,5 @@
   },
   "bin": [
     "imbolauncher"
-  ],
-  "config": {
-    "bin-dir": "bin"
-  }
+  ]
 }
