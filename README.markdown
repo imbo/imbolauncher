@@ -1,11 +1,11 @@
 # Imbo launcher
-This application can be used to launch one or more Imbo servers hosted by PHP's built in web server. This can come in handy for testing purposes, and can be used on Travis-CI for instance when integrating clients.
+This application can be used to launch one or more [Imbo](https://github.com/imbo/imbo) servers hosted by PHP's [built in web server](http://php.net/manual/en/features.commandline.webserver.php). This can come in handy for testing purposes, and can be used with [Travis-CI](https://travis-ci.org) when integrating clients for instance.
 
 ## Requirements
-This application requires PHP-5.4 or greater.
+This application requires [PHP-5.4](http://php.net) or greater.
 
 ## Usage/Installation
-First, install the package using Composer:
+First, install the package using [Composer](https://getcomposer.org):
 
     curl https://getcomposer.org/installer | php
     php composer.phar create-project -n imbo/imbolauncher imbolauncher dev-develop
