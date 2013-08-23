@@ -64,9 +64,18 @@ Specify the amount of seconds each server is allowed to use when starting up. Th
 ##### --pid-file
 Path to the file used to store the PID's of the started servers. The default value is `/tmp/imbolauncher-pids`.
 
+#### Example(s)
+`./imbolauncher start-servers --config config.json`
+`./imbolauncher start-servers --config config.json --timeout 1 --install-path /tmp/imbolauncher/installations --pid-file /tmp/imbolauncher/pids`
+
 ### kill-servers
 This command can be used to kill the servers previously started by ImboLauncher. To do this you need to specify the path to the PID file you used when starting the servers.
 
 #### Options
 ##### --pid-file
 Path to the file that holds the PID's of the servers previously started with ImboLauncher. The command tries to figure out what the different PID's refer to and present this to the user before continuing to kill the processes. After the processes have been killed the file referred to is deleted. The default value is `/tmp/imbolauncher-pids`.
+
+#### Example(s)
+`./imbolauncher kill-servers`
+`./imbolauncher kill-servers --pid-file /path/to/pid/file`
+
