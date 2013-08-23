@@ -30,6 +30,13 @@ use ImboLauncher\Server,
  */
 class StartServers extends Command {
     /**
+     * Path to the PID file
+     *
+     * @var string
+     */
+    private $pidFile;
+
+    /**
      * PID's of the started servers
      *
      * @var int[]
@@ -101,12 +108,27 @@ HELP;
             'How long to wait until the started servers are connectable, in seconds. Defaults to 2',
             2
         );
+        $this->addOption(
+            'pid-file',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'File to store the server PID\'s in. Defaults to /tmp/imbolauncher-pids',
+            '/tmp/imbolauncher-pids'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        $this->pidFile = $input->getOption('pid-file');
+
+        if (!file_exists($this->pidFile) && !is_writable(dirname($this->pidFile))) {
+            throw new InvalidArgumentException('The PID file does not exist, and the parent directory is not writable');
+        } else if (file_exists($this->pidFile) && !is_writable($this->pidFile)) {
+            throw new InvalidArgumentException('The PID exists but is not writable');
+        }
+
         // Fetch the timeout
         $timeout = (int) $input->getOption('timeout');
 
@@ -208,6 +230,8 @@ HELP;
             $server->start();
             $this->pids[] = $server->getPid();
         }
+
+        file_put_contents($this->pidFile, implode(',', $this->pids));
     }
 
     /**
