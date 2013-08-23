@@ -30,6 +30,13 @@ use ImboLauncher\Server,
  */
 class StartServers extends Command {
     /**
+     * PID's of the started servers
+     *
+     * @var int[]
+     */
+    private $pids = array();
+
+    /**
      * Servers
      *
      * @param Server[]
@@ -74,6 +81,7 @@ By using this file you will spawn two web servers, one listening on <info>http:/
 HELP;
 
         $this->setHelp($help);
+
         $this->addOption(
             'config',
             null,
@@ -86,12 +94,26 @@ HELP;
             InputOption::VALUE_REQUIRED,
             'Path to where to install the different Imbo versions. This path will be used as a prefix, and each version will be installed in a separate directory within.'
         );
+        $this->addOption(
+            'timeout',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'How long to wait until the started servers are connectable, in seconds. Defaults to 2',
+            2
+        );
     }
 
     /**
      * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        // Fetch the timeout
+        $timeout = (int) $input->getOption('timeout');
+
+        if (!$timeout) {
+            throw new InvalidArgumentException('The timeout value must be a positive integer');
+        }
+
         // Fetch the install path
         $installPath = $input->getOption('install-path');
 
@@ -126,6 +148,7 @@ HELP;
             $this->emptyDir($absoluteInstallPath, $output);
         }
 
+        Server::$timeout = $timeout;
         Server::$installPath = $absoluteInstallPath;
         Server::$router = __DIR__ . '/../../../router.php';
 
@@ -183,6 +206,7 @@ HELP;
     private function startServers() {
         foreach ($this->servers as $server) {
             $server->start();
+            $this->pids[] = $server->getPid();
         }
     }
 
