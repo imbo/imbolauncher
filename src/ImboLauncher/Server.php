@@ -36,6 +36,13 @@ class Server {
     static public $router;
 
     /**
+     * How long time to use until we can connect to a started server, in seconds
+     *
+     * @var int
+     */
+    static public $timeout = 2;
+
+    /**
      * Output instance
      *
      * @param OutputInterface
@@ -256,7 +263,8 @@ class Server {
 
         $this->say(sprintf('Trying to connect (%s:%d)...', $this->host, $this->port));
 
-        while(!$this->isConnectable() && (microtime(true) - $start) < 2);
+        // Loop until we can connect to the server, or a timeout occurs
+        while(!$this->isConnectable() && (microtime(true) - $start) < self::$timeout);
 
         if (!$this->isConnectable()) {
             throw new RuntimeException(sprintf(
