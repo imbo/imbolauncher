@@ -32,8 +32,6 @@ Below you will find the complete list of commands supported by ImboLauncher.
 This command will start one or more servers based on your configuration file.
 
 #### Options
-The following options can be used with the `start-servers` command:
-
 ##### --config
 Path to the configuration file. For instance `imbolauncher/imbolauncher --config config.json start-servers`. The configuration file uses JSON, and must follow the [configuration file schema](config-schema.json). Below is an example of such a config file:
 
@@ -59,3 +57,16 @@ The Imbo servers will be installed in this directory. Each server will be instal
 
 * `/path/to/installations/dev-develop`
 * `/path/to/installations/0.3.2`
+
+##### --timeout
+Specify the amount of seconds each server is allowed to use when starting up. The default value is `2`.
+
+##### --pid-file
+Path to the file used to store the PID's of the started servers. The default value is `/tmp/imbolauncher-pids`.
+
+### kill-servers
+This command can be used to kill the servers previously started by ImboLauncher. To do this you need to specify the path to the PID file you used when starting the servers.
+
+#### Options
+##### --pid-file
+Path to the file that holds the PID's of the servers previously started with ImboLauncher. The command tries to figure out what the different PID's refer to and present this to the user before continuing to kill the processes. After the processes have been killed the file referred to is deleted. The default value is `/tmp/imbolauncher-pids`.
