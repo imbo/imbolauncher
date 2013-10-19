@@ -44,7 +44,7 @@ Path to the configuration file. For instance `imbolauncher/imbolauncher --config
                 "config": "imbo1.php"
             },
             {
-                "version": "0.3.2",
+                "version": "0.3.3",
                 "host": "localhost",
                 "port": 9011,
                 "config": "imbo2.php"
@@ -56,7 +56,7 @@ Path to the configuration file. For instance `imbolauncher/imbolauncher --config
 The Imbo servers will be installed in this directory. Each server will be installed in separate directories matching the versions. If you use the above configuration file, and for instance `/path/to/installations` as `--install-path` the servers will be installed to:
 
 * `/path/to/installations/dev-develop`
-* `/path/to/installations/0.3.2`
+* `/path/to/installations/0.3.3`
 
 ##### --timeout
 Specify the amount of seconds each server is allowed to use when starting up. The default value is `2`.
