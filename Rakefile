@@ -1,4 +1,6 @@
 require 'fileutils'
+require 'digest/md5'
+require 'json'
 
 basedir  = "."
 build    = "#{basedir}/build"
@@ -65,13 +67,30 @@ end
 
 desc "Check syntax on all php files in the project"
 task :lint do
+  lintCache = "#{basedir}/.lintcache"
+
+  begin
+    sums = JSON.parse(IO.read(lintCache))
+  rescue Exception => foo
+    sums = {}
+  end
+
   `git ls-files "*.php"`.split("\n").each do |f|
+    f = File.absolute_path(f)
+    md5 = Digest::MD5.hexdigest(File.read(f))
+
+    next if sums[f] == md5
+
+    sums[f] = md5
+
     begin
       sh %{php -l #{f}}
     rescue Exception
       exit 1
     end
   end
+
+  IO.write(lintCache, JSON.dump(sums))
 end
 
 desc "Run PHPUnit tests"
