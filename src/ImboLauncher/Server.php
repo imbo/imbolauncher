@@ -171,6 +171,15 @@ class Server {
     }
 
     /**
+     * Get the path for the logfile
+     *
+     * @return string
+     */
+    private function getLogPath() {
+        return $this->getInstallPath() . '/httpd.log';
+    }
+
+    /**
      * Shout a message
      *
      * @param string $message
@@ -247,11 +256,12 @@ class Server {
 
         // Start the server
         $command = sprintf(
-            'php -S %s:%d -t %s %s >/dev/null 2>&1 & echo $!',
+            'php -S %s:%d -t %s %s >%s 2>&1 & echo $!',
             escapeshellarg($this->host),
             $this->port,
             escapeshellarg($this->getInstallPath() . '/public'),
-            escapeshellarg(self::$router));
+            escapeshellarg(self::$router),
+            escapeshellarg($this->getLogPath()));
 
         $this->shout(sprintf('Executing command: %s', $command));
         $output = array();
