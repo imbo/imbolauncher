@@ -115,7 +115,7 @@ class Server {
     public function start() {
         if ($this->isConnectable()) {
             throw new RuntimeException(sprintf(
-                'Something seems to be running on %s:%d, aborting',
+                'Something seems to be running on %s:%d, aborting. You can kill these servers with the kill-servers command.',
                 $this->host,
                 $this->port
             ));
