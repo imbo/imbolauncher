@@ -238,7 +238,7 @@ class Server {
 
         if ($returnVal > 0) {
             throw new RuntimeException(sprintf(
-                'Could not install server (%s), aborting',
+                'Could not install server (%s), aborting.',
                 $this->version
             ));
         }
@@ -285,12 +285,42 @@ class Server {
 
         if (!$this->isConnectable()) {
             throw new RuntimeException(sprintf(
-                'Could not connect to %s:%d, aborting',
+                'Could not connect to %s:%d, aborting.',
                 $this->host,
                 $this->port
             ));
         }
 
+        if (($code = $this->serverStatus($this->host, $this->port)) !== 200) {
+            throw new RuntimeException(sprintf(
+                'Server status on %s:%d is not OK, expected response code 200, got %d, aborting.',
+                $this->host,
+                $this->port,
+                $code
+            ));
+        }
+
         $this->say('Done!');
+    }
+
+    /**
+     * Check the Imbo status
+     *
+     * @param string $host The hostname
+     * @param int $port The port number
+     * @return int Returns the HTTP status code of Imbo's status endpoint
+     */
+    private function serverStatus($host, $port) {
+        $c = curl_init();
+
+        curl_setopt_array($c, array(
+            CURLOPT_URL => sprintf('http://%s:%d/status', $host, $port),
+            CURLOPT_NOBODY => true,
+        ));
+        $result = curl_exec($c);
+        $statusCode = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        curl_close($c);
+
+        return $statusCode;
     }
 }
