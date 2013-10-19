@@ -234,7 +234,14 @@ class Server {
             escapeshellarg($this->version)
         );
         $this->shout(sprintf('Executing command: %s', $command));
-        exec($command);
+        exec($command, $output, $returnVal);
+
+        if ($returnVal > 0) {
+            throw new RuntimeException(sprintf(
+                'Could not install server (%s), aborting',
+                $this->version
+            ));
+        }
 
         // Create a link to the configuration file
         $command = sprintf(
