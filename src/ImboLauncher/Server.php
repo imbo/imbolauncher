@@ -221,8 +221,8 @@ class Server {
         // Command used to create the project using composer
         $command = sprintf(
             'composer create-project -n imbo/imbo %s %s',
-            $this->getInstallPath(),
-            $this->version
+            escapeshellarg($this->getInstallPath()),
+            escapeshellarg($this->version)
         );
         $this->shout(sprintf('Executing command: %s', $command));
         exec($command);
@@ -230,8 +230,8 @@ class Server {
         // Create a link to the configuration file
         $command = sprintf(
             'ln -s %s %s',
-            $this->config,
-            $this->getInstallPath() . '/config/config.php'
+            escapeshellarg($this->config),
+            escapeshellarg($this->getInstallPath() . '/config/config.php')
         );
         $this->shout(sprintf('Executing command: %s', $command));
         exec($command);
@@ -248,10 +248,10 @@ class Server {
         // Start the server
         $command = sprintf(
             'php -S %s:%d -t %s %s >/dev/null 2>&1 & echo $!',
-            $this->host,
+            escapeshellarg($this->host),
             $this->port,
-            $this->getInstallPath() . '/public',
-            self::$router);
+            escapeshellarg($this->getInstallPath() . '/public'),
+            escapeshellarg(self::$router));
 
         $this->shout(sprintf('Executing command: %s', $command));
         $output = array();
