@@ -291,7 +291,10 @@ class Server {
             ));
         }
 
-        if (($code = $this->serverStatus($this->host, $this->port)) !== 200) {
+        // Fetch the status code
+        $code = $this->serverStatus($this->host, $this->port);
+
+        if ($code !== 200) {
             throw new RuntimeException(sprintf(
                 'Server status on %s:%d is not OK, expected response code 200, got %d, aborting.',
                 $this->host,
