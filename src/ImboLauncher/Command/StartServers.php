@@ -197,7 +197,7 @@ HELP;
         }
 
         // Validate the configuration
-        $this->validateConfiguration($config);
+        $this->validateConfiguration($config, dirname($fullPath));
 
         // Add servers from config
         foreach ($config->servers as $server) {
@@ -238,17 +238,23 @@ HELP;
      * Validate the configuration object from the --config file
      *
      * @param stdClass $config
+     * @param string $configPath Path of the config file, for relative lookups
      */
-    private function validateConfiguration(stdClass $config) {
+    private function validateConfiguration(stdClass $config, $configPath) {
         // Validate the configuration file using the schema
         $validator = new Validator(__DIR__ . '/../../../config-schema.json');
         $validator->validate($config); // This throws exceptions when errors occur
 
-        // Make sure that none of the ports are busy
+        // Make sure that configuration files exists
         foreach ($config->servers as $server) {
             $absolutePath = realpath($server->config);
+            
+            // If imbo-config could not be found, try to resolve it relative to the imbolauncher configuration
+            if (!$absolutePath) {
+                $absolutePath = realpath($configPath . '/' . $server->config);
+            }
 
-            if (!file_exists($absolutePath)) {
+            if ($absolutePath === false) {
                 throw new RuntimeException(sprintf('Imbo config file missing: %s', $server->config));
             }
 
