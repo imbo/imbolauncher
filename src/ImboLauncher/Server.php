@@ -237,6 +237,13 @@ class Server {
         exec($command, $output, $returnVal);
 
         if ($returnVal > 0) {
+            if (!empty($output)) {
+                $this->shout(sprintf(
+                    'Encountered problem during installation: %s',
+                    "\n" . implode("\n", $output) . "\n"
+                ));
+            }
+            
             throw new RuntimeException(sprintf(
                 'Could not install server (%s), aborting.',
                 $this->version
