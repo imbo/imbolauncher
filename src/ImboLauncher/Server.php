@@ -243,7 +243,7 @@ class Server {
                     "\n" . implode("\n", $output) . "\n"
                 ));
             }
-            
+
             throw new RuntimeException(sprintf(
                 'Could not install server (%s), aborting.',
                 $this->version
