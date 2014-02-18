@@ -229,7 +229,7 @@ class Server {
 
         // Command used to create the project using composer
         $command = sprintf(
-            'composer create-project -n imbo/imbo %s %s',
+            'composer create-project imbo/imbo %s %s -n --no-dev --prefer-source',
             escapeshellarg($this->getInstallPath()),
             escapeshellarg($this->version)
         );
