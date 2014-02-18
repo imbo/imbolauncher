@@ -10,9 +10,6 @@ tests    = "#{basedir}/tests"
 desc "Task used by Jenkins-CI"
 task :jenkins => [:prepare, :lint, :installdep, :test, :phpcs_ci]
 
-desc "Task used by Travis-CI"
-task :travis => [:installdep, :test]
-
 desc "Default task"
 task :default => [:prepare, :lint, :installdep, :test, :phpcs]
 
@@ -31,13 +28,8 @@ end
 
 desc "Install dependencies"
 task :installdep do
-  if ENV["TRAVIS"] == "true"
-    system "composer self-update"
-    system "composer -n --no-ansi install --dev --prefer-source"
-  else
-    Rake::Task["install_composer"].invoke
-    system "php -d \"apc.enable_cli=0\" composer.phar -n install --dev --prefer-source"
-  end
+  Rake::Task["install_composer"].invoke
+  system "php -d \"apc.enable_cli=0\" composer.phar -n install --dev --prefer-source"
 end
 
 desc "Update dependencies"
@@ -96,11 +88,7 @@ end
 desc "Run PHPUnit tests"
 task :phpunit do
   begin
-    if ENV["TRAVIS"] == "true"
-      sh %{vendor/bin/phpunit --verbose -c tests/phpunit.xml.dist tests}
-    else
-      sh %{vendor/bin/phpunit --verbose --coverage-html build/coverage --coverage-clover build/logs/clover.xml --log-junit build/logs/junit.xml -c tests tests}
-    end
+    sh %{vendor/bin/phpunit --verbose --coverage-html build/coverage --coverage-clover build/logs/clover.xml --log-junit build/logs/junit.xml -c tests tests}
   rescue Exception
     exit 1
   end
