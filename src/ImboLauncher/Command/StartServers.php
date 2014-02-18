@@ -248,7 +248,7 @@ HELP;
         // Make sure that configuration files exists
         foreach ($config->servers as $server) {
             $absolutePath = realpath($server->config);
-            
+
             // If imbo-config could not be found, try to resolve it relative to the imbolauncher configuration
             if (!$absolutePath) {
                 $absolutePath = realpath($configPath . '/' . $server->config);
@@ -293,6 +293,7 @@ HELP;
                 if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
                     $output->writeln('Removing directory: ' . $name);
                 }
+
                 unlink($name);
             }
         }
