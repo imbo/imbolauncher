@@ -250,6 +250,15 @@ class Server {
             ));
         }
 
+        // Get the version and commit from the output
+        $installedVersion = preg_replace(
+            '/.*Installing imbo\/imbo \((.*?)\).*/s',
+            '$1',
+            implode("\n", $output)
+        );
+
+        $this->say(sprintf('Installed imbo/imbo @ %s', $installedVersion));
+
         // Create a link to the configuration file
         $command = sprintf(
             'ln -s %s %s',
