@@ -1,0 +1,18 @@
+language: php
+php:
+  - 5.6
+  - 7.0
+notifications:
+  irc:
+    use_notice: true
+    skip_join: true
+    channels: ["irc.freenode.org#imbo"]
+branches:
+  only:
+    - develop
+    - master
+before_script:
+  - composer self-update
+  - composer -n --no-ansi install --prefer-source
+script:
+  - ./vendor/bin/phpunit --verbose
