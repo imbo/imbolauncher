@@ -11,11 +11,21 @@
 
 $parent = __DIR__;
 
-while (($parent = dirname($parent)) !== '/') {
+$previousParent = null;
+
+while (($parent = dirname($parent)) != $previousParent) {
     if (file_exists($parent . "/vendor/autoload.php")) {
         break;
     }
+    
+    $previousParent = $parent;
 }
+
+if ($previousParent == $parent) {
+    exit("Could not find a suitable vendor/ directory in any parent directories.\n\nInstall dependencies by running\n\n    composer install\n\nin the main imbolauncher directory.\n");
+}
+
+print($parent . "/vendor/autoload.php");
 
 require $parent . '/vendor/autoload.php';
 
