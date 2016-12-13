@@ -25,8 +25,6 @@ if ($previousParent == $parent) {
     exit("Could not find a suitable vendor/ directory in any parent directories.\n\nInstall dependencies by running\n\n    composer install --no-dev\n\nin the main imbolauncher directory.\n");
 }
 
-print($parent . "/vendor/autoload.php");
-
 require $parent . '/vendor/autoload.php';
 
 $app = new ImboLauncher\Application();
