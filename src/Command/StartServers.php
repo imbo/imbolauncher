@@ -172,7 +172,7 @@ HELP;
 
         Server::$timeout = $timeout;
         Server::$installPath = $absoluteInstallPath;
-        Server::$router = __DIR__ . '/../../../router.php';
+        Server::$router = __DIR__ . '/../../router.php';
 
         // Fetch the config option
         $configOption = $input->getOption('config');
@@ -242,7 +242,7 @@ HELP;
      */
     private function validateConfiguration(stdClass $config, $configPath) {
         // Validate the configuration file using the schema
-        $validator = new Validator(__DIR__ . '/../../../config-schema.json');
+        $validator = new Validator(__DIR__ . '/../../config-schema.json');
         $validator->validate($config); // This throws exceptions when errors occur
 
         // Make sure that configuration files exists
