@@ -14,6 +14,7 @@ use Symfony\Component\Console\Command\Command,
     Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Input\InputOption,
     Symfony\Component\Console\Output\OutputInterface,
+    Symfony\Component\Console\Question\ConfirmationQuestion,
     RuntimeException,
     InvalidArgumentException;
 
@@ -91,7 +92,7 @@ class KillServers extends Command {
             ));
         }
 
-        $dialog = $this->getHelperSet()->get('dialog');
+        $helper = $this->getHelperSet()->get('question');
 
         $question = 'You are about to kill the following processes:' . PHP_EOL . PHP_EOL;
 
@@ -99,11 +100,12 @@ class KillServers extends Command {
             $question .= sprintf('%d: %s', $pid, $command) . PHP_EOL;
         }
 
-        $question .= PHP_EOL . 'Continue? [Yn]';
+        $question .= PHP_EOL . 'Continue? [Yn] ';
+        $confirmation = new ConfirmationQuestion($question, true);
 
         if (
             !$input->getOption('no-interaction') &&
-            !$dialog->askConfirmation($output, $question, true)
+            !$helper->ask($input, $output, $confirmation)
         ) {
             return;
         }

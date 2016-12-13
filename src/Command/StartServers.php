@@ -15,6 +15,7 @@ use ImboLauncher\Server,
     Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Output\OutputInterface,
     Symfony\Component\Console\Input\InputOption,
+    Symfony\Component\Console\Question\ConfirmationQuestion,
     RuntimeException,
     InvalidArgumentException,
     stdClass,
@@ -158,11 +159,12 @@ HELP;
 
         // Empty the install path if it contains any files
         if (count(glob($absoluteInstallPath . '/*'))) {
-            $dialog = $this->getHelperSet()->get('dialog');
+            $helper = $this->getHelperSet()->get('question');
+            $question = new ConfirmationQuestion($absoluteInstallPath . ' contains files and/or directories. Remove? [Yn] ', true);	
 
             if (
                 !$input->getOption('no-interaction') &&
-                !$dialog->askConfirmation($output, $absoluteInstallPath . ' contains files and/or directories. Remove? [Yn]', true)
+                !$helper->ask($input, $output, $question)
             ) {
                 throw new RuntimeException('ImboLauncher requires the installation path to be empty. Aborting...');
             }
