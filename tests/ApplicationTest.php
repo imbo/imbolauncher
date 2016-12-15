@@ -8,19 +8,20 @@
  * distributed with this source code.
  */
 
-namespace ImboLauncherTest;
+namespace ImboLauncher;
 
-use ImboLauncher\Application;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Application test
  *
  * @author Christer Edvartsen <cogo@starzinger.net>
  * @package Unit tests
+ * @coversDefaultClass ImboLauncher\Application
  */
-class ApplicationTest extends \PHPUnit_Framework_TestCase {
+class ApplicationTest extends PHPUnit_Framework_TestCase {
     /*
-     * @covers ImboLauncher\Application::__construct
+     * @covers ::__construct
      */
     public function testCanCreateAnApplicationInstance() {
         $app = new Application();
