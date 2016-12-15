@@ -35,6 +35,7 @@
     "bin/imbolauncher"
   ],
   "scripts": {
+    "lint": "for file in `git ls-files '*php'`; do php -l $file; done",
     "test-phpunit": "phpunit --verbose",
     "test": ["@test-phpunit"]
   }
