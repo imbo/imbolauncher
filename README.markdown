@@ -1,5 +1,5 @@
 # Imbo launcher
-This application can be used to launch one or more [Imbo](https://github.com/imbo/imbo) servers hosted by PHP's [built in web server](http://php.net/manual/en/features.commandline.webserver.php). This can come in handy for testing purposes, and can be used with [Travis-CI](https://travis-ci.org) when integrating clients for instance.
+This application can be used to launch one or more [Imbo](https://github.com/imbo/imbo) servers hosted by PHPs [built in web server](http://php.net/manual/en/features.commandline.webserver.php). This can come in handy for testing purposes, and can be used with [Travis-CI](https://travis-ci.org) when integrating clients for instance.
 
 ## Requirements
 This application requires [PHP-5.6](http://php.net) or greater.
@@ -45,7 +45,7 @@ Path to the configuration file. For instance `bin/imbolauncher start-servers --c
                 "config": "imbo1.php"
             },
             {
-                "version": "0.3.3",
+                "version": "2.2.1",
                 "host": "localhost",
                 "port": 9011,
                 "config": "imbo2.php"
@@ -57,13 +57,13 @@ Path to the configuration file. For instance `bin/imbolauncher start-servers --c
 The Imbo servers will be installed in this directory. Each server will be installed in a separate directory matching the version. If you use the above configuration file, and for instance `/path/to/installations` as `--install-path` the servers will be installed to:
 
 * `/path/to/installations/dev-develop`
-* `/path/to/installations/0.3.3`
+* `/path/to/installations/2.2.1`
 
 ##### --timeout
 Specify the amount of seconds each server is allowed to use when starting up. The default value is `2`.
 
 ##### --pid-file
-Path to the file used to store the PID's of the started servers. The default value is `/tmp/imbolauncher-pids`.
+Path to the file used to store the PIDs of the started servers. The default value is `/tmp/imbolauncher-pids`.
 
 #### Example(s)
 * `./bin/imbolauncher start-servers --config config.json`

@@ -42,14 +42,14 @@ class StartServers extends Command {
      *
      * @var int[]
      */
-    private $pids = array();
+    private $pids = [];
 
     /**
      * Servers
      *
      * @param Server[]
      */
-    private $servers = array();
+    private $servers = [];
 
     /**
      * Class constructor
@@ -160,7 +160,7 @@ HELP;
         // Empty the install path if it contains any files
         if (count(glob($absoluteInstallPath . '/*'))) {
             $helper = $this->getHelperSet()->get('question');
-            $question = new ConfirmationQuestion($absoluteInstallPath . ' contains files and/or directories. Remove? [Yn] ', true);	
+            $question = new ConfirmationQuestion($absoluteInstallPath . ' contains files and/or directories. Remove? [Yn] ', true);
 
             if (
                 !$input->getOption('no-interaction') &&

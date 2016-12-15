@@ -287,7 +287,7 @@ class Server {
             escapeshellarg($this->getLogPath()));
 
         $this->shout(sprintf('Executing command: %s', $command));
-        $output = array();
+        $output = [];
         exec($command, $output);
         $this->pid = (int) $output[0];
         $this->shout(sprintf('PID %d', $this->pid));
@@ -332,10 +332,10 @@ class Server {
     private function serverStatus($host, $port) {
         $c = curl_init();
 
-        curl_setopt_array($c, array(
+        curl_setopt_array($c, [
             CURLOPT_URL => sprintf('http://%s:%d/status', $host, $port),
             CURLOPT_NOBODY => true,
-        ));
+        ]);
         $result = curl_exec($c);
         $statusCode = curl_getinfo($c, CURLINFO_HTTP_CODE);
         curl_close($c);

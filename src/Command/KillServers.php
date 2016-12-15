@@ -55,7 +55,7 @@ class KillServers extends Command {
         }
 
         $pids = explode(',', file_get_contents($pidFile));
-        $commands = array();
+        $commands = [];
 
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
             $output->writeln('Fetching information about the PID\'s');
@@ -63,7 +63,7 @@ class KillServers extends Command {
 
         foreach ($pids as $pid) {
             $pid = (int) trim($pid);
-            $result = array();
+            $result = [];
 
             $command = sprintf('ps -o command %d', $pid);
 
