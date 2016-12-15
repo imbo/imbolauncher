@@ -15,19 +15,27 @@
   },
   "require": {
     "php": ">=5.6.0",
-    "symfony/console": "^3.1",
+    "symfony/console": "^3.2",
     "hasbridge/json-schema-validator": "^0.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.4"
+    "phpunit/phpunit": "^5.7"
   },
   "autoload": {
     "psr-4": {
-      "ImboLauncher\\": "src/",
-      "ImboLauncherTest\\": "tests/"
+      "ImboLauncher\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ImboLauncher\\": "tests/"
     }
   },
   "bin": [
     "bin/imbolauncher"
-  ]
+  ],
+  "scripts": {
+    "test-phpunit": "phpunit --verbose",
+    "test": ["@test-phpunit"]
+  }
 }
