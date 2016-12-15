@@ -27,9 +27,9 @@ class Application extends Console\Application {
         parent::__construct('ImboLauncher', 'dev');
 
         // Register commands
-        $this->addCommands(array(
+        $this->addCommands([
             new Command\StartServers(),
             new Command\KillServers(),
-        ));
+        ]);
     }
 }
